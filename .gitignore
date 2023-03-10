@@ -1,0 +1,14 @@
+.env
+archive.zip
+car_pred.csv
+car_pred.ipynb
+car_pred.py
+car.jpeg
+Presentation.pdf
+random_forest_regression_model.pkl
+RedHotDark_pallete.txt
+RedHotDark.pdf
+test_data_processing.ipynb
+test-data.csv
+train-data.csv
+rfr_ht_model.pkl
