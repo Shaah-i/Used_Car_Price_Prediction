@@ -1,10 +1,15 @@
-import pickle
+import gzip, pickle
 import streamlit as st
 import pandas as pd
 import numpy as np
 from PIL import Image
 
-model= pickle.load(open('rfr_ht_model.pkl', 'rb'))
+
+filepath = 'rfr_ht_model.pkl'
+with gzip.open(filepath, 'rb') as f:
+    p = pickle.Unpickler(f)
+    model = p.load()
+
 
 def convert_var(location, owner, fuel, transmission, company):
     Location_Ahmedabad= 0 #dropped
@@ -83,25 +88,42 @@ def convert_var(location, owner, fuel, transmission, company):
 
 def main():
     st.header('🚕Used Car Price Prediction')
-
+    
     activities = ['Calcuate Price', 'About', 'Contact']
-    option = st.sidebar.selectbox('Menu ', activities)
+    
+    option = st.sidebar.radio('Menu ', activities)
 
     if option == 'About':
         
         abt = """
-        Github Notebook: [Link]("https://github.com/Shaah-i/Flight_Fare_Estimator/blob/main/flightfareprediction_Nov2022.ipynb)
+        ##### Github Notebook: [Link]("https://github.com/Shaah-i/Flight_Fare_Estimator/blob/main/flightfareprediction_Nov2022.ipynb)
 
-        The so called second hand's car have a huge market base. Many consider to buy a Used Car intsead of buying of new one, as it's is feasible and a better investment.
+        ##### Used cars have a huge market base, with many people considering them as a better investment option than buying a new car because it's more feasible. The main reason for this is that when you buy a new car and sell it just a day later, the price drops by 30%. Unfortunately, there are also many frauds in the market who not only sell faulty cars but also mislead buyers about the true value of the vehicle.
 
-        The main reason for this huge market is that when you buy a New Car and sale it just another day without any default on it, the price of car reduces by 30%.
+        ##### So, here I used this [dataset]("https://www.kaggle.com/datasets/avikasliwal/used-cars-price-prediction") to Predict the price of any used car.
 
-        There are also many frauds in the market who not only sale wrong but also they could mislead to wrong price.
-        So, here I used this [dataset]("https://www.kaggle.com/datasets/avikasliwal/used-cars-price-prediction") to Predict the price of any used car.
-
-        Straight away head to the Calculate Price tab and get a right estimate of price of car you are willing to buy.
+        ##### Straight away head to the Calculate Price tab and get a right estimate of price of car you are willing to buy.
         """
         st.markdown(abt)
+
+        # st.markdown("""
+        # # About Me
+
+        # Shubham is a data enthusiast and you can know more about him [here]()
+        # """)
+
+        project_list = """
+        ### See previous projects:
+
+        * [Flight_Fare_Estimator](https://flight-fare-estimator-shaah-i.streamlit.app/)
+        * [Insurance Price Prediction](https://github.com/Shaah-i/Insurance)
+        * [Dashboards](https://community.powerbi.com/t5/forums/recentpostspage/post-type/message/user-id/449500)
+        """
+        st.markdown(project_list)
+
+
+        disclaimer = "###### The theme and images have inspiration from the #RedHotDark edition of TATA MOTORS, but there is no intention of infringing on their rights or plagiarizing their work. I thank TATA MOTORS for the inspiration and their innovative ideas."
+        st.caption(disclaimer)
 
     elif option == 'Contact':
         cntct = """
@@ -123,18 +145,18 @@ def main():
         st.subheader('Calcuate Price')
     
         dr1, dr2 = st.columns([1,1])
-        cust= dr1.selectbox("Buyer or Seller", ['Buyer', 'Seller'])
+        cust= dr1.selectbox("Are you a Buyer or a Seller", ['Buyer', 'Seller'])
         # dr2.selectbox("", [],)
 
         manuf = ['Maruti', 'Hyundai', 'Honda', 'Toyota', 'Mercedes-Benz', 'Volkswagen', 'Ford', 'Mahindra', 'BMW', 'Audi', 'Tata', 'Skoda', 'Renault Chevrolet', 'Nissan', 'Land', 'Jaguar', 'Mitsubishi', 'Mini', 'Fiat', 'Volvo', 'Porsche', 'Jeep', 'Datsun,Force', 'ISUZU', 'Ambassador', 'Isuzu', 'Bentley', 'Lamborghini']
         company = dr1.selectbox("Manufacturer", manuf)
-        kg_dr = dr2.number_input("Kilometer Driven", step= 100, value= 50000)
+        kg_dr = dr2.number_input("Kilometers Driven", step= 100, value= 50000)
         mileage = dr1.number_input("Mileage in kmpl", value= 19.25)
         engine = dr2.number_input("Engine in CC", value= 1500)
         power = dr1.number_input("Power in bhp", value=100.00)
         city = ['Mumbai', 'Pune', 'Chennai', 'Coimbatore', 'Hyderabad', 'Jaipur', 'Kochi', 'Kolkata', 'Delhi', 'Bangalore', 'Ahmedabad']
         location = dr2.selectbox('City', city)
-        col1, col2, col3 = st.columns([1.7, 1.3, 0.8])
+        col1, col2, col3 = st.columns([1.6, 1.4, 0.8])
         owner = col1.radio("Choose Owner Type", ('First', 'Second', 'Third', 'Fourth & Above'))
         fuel = col2.radio("Choose Fuel Type", ('CNG', 'Diesel', 'Petrol', 'LPG'))
         transmission = col3.radio("Choose Transmission", ('Manual', 'Automatic'))
@@ -172,6 +194,7 @@ def main():
             st.header("₹ {:,}".format(round(model.predict(inputs)[0] * 100000), 0))
 
         st.markdown("#### Developed By: [**shaah-i**](https://github.com/Shaah-i) with 😍", )
+        st.markdown(":red[⫷] Learn more about the app and the author by toggling the menu.")
 
 
 if __name__== '__main__':
