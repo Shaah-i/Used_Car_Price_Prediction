@@ -131,9 +131,9 @@ def main():
 
         This Model is Developed by **Shubham (shaah_i)**
 
-        LinkedIn: [Link]("https://www.linkedin.com/in/shubham-shaah/")
+        LinkedIn: [Link](https://www.linkedin.com/in/shubham-shaah/)
 
-        GitHub: [Link]("https://github.com/Shaah-i/")
+        GitHub: [Link](https://github.com/Shaah-i)
 
         \t \t Made with ❤ in IN
         """
