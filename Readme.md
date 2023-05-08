@@ -7,4 +7,4 @@
 
 Check the project,
 
-Hosted on Streamlit: 
+Hosted on Streamlit: https://used-car-price-prediction-shaah-i.streamlit.app/
