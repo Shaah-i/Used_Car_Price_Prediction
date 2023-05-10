@@ -100,7 +100,7 @@ def main():
 
         ##### Used cars have a huge market base, with many people considering them as a better investment option than buying a new car because it's more feasible. The main reason for this is that when you buy a new car and sell it just a day later, the price drops by 30%. Unfortunately, there are also many frauds in the market who not only sell faulty cars but also mislead buyers about the true value of the vehicle.
 
-        ##### So, here I used this [dataset]("https://www.kaggle.com/datasets/avikasliwal/used-cars-price-prediction") to Predict the price of any used car.
+        ##### So, here I used this [dataset](https://www.kaggle.com/datasets/avikasliwal/used-cars-price-prediction) to Predict the price of any used car.
 
         ##### Straight away head to the Calculate Price tab and get a right estimate of price of car you are willing to buy.
         """
